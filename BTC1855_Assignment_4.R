@@ -55,6 +55,9 @@ summary(ufo)
 #' which is the date and time of sighting.
 names(ufo)[names(ufo) == 'datetime'] <- 'sighting_datetime'
 
+# Check if the name has been updated
+colnames(ufo)
+
 #' Convert values in sighting_datetime and date_posted to POSIXlt objects for 
 #' easy manipulation later on
 ufo$sighting_datetime <- strptime(ufo[["sighting_datetime"]],"%Y-%m-%d %H:%M")
@@ -67,6 +70,16 @@ ufo$date_posted <- strptime(ufo[["date_posted"]], "%d-%m-%Y")
 #' manually. Instead, I decided to set them as NA. The missing values in 
 #' `country` is not labelled as NA. Change the values at the indices of where 
 #' empty strings are found to NA.
+
+#' Missing values in `country` column are not saved as NA. Check if there are
+#' any missing values by checking if there are any matches to empty strings. If
+#' the length is > 0, then that would indicate that there are empty values in
+#' the column.
+length(which(ufo[["country"]] == "")) > 0
+
+
 is.na(ufo[["country"]]) <- which(ufo[["country"]] == "") 
 
-
+#' Identify missing values in the `duration.seconds` column. The missing values 
+#' are not saved as NA - change the missing values to NA.
+is.na(ufo[["duration.seconds"]]) <- which(ufo[["duration.seconds"]] == "") 
