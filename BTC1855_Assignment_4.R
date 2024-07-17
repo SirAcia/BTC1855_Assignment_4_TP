@@ -27,6 +27,9 @@
 #' country).
 #' Step 14: Create a histogram using the 'duration seconds' column.
 
+# Load packages needed to clean and analyze data
+library(dplyr)
+
 # Set the working directory for where you can find the ufo dataset
 setwd("C:/Users/tpalm/Downloads/")
 
