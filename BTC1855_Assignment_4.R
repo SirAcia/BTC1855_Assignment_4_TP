@@ -17,15 +17,14 @@
 #' Step 7: Identify the index numbers for rows where the 'comments' column 
 #' contains 'NUFORC:'.
 #' Step 8: Remove those specified rows.
-#' Step 9: Create a new column where it only contains the dates of the sighting.
-#' Step 10: Create a new column called report_delay. It should contain the time
+#' Step 9: Create a new column called report_delay. It should contain the time
 #' differences in days between date of sighting and date reported.
-#' Step 11: Remove the rows where the date of sighting > date reported.
-#' Step 12: Extract all rows where there is no missing data in country, duration
+#' Step 10: Remove the rows where the date of sighting > date reported.
+#' Step 11: Extract all rows where there is no missing data in country, duration
 #' seconds, and report_delay.
-#' Step 13: Create a table with the average report_delay per country (Group by
+#' Step 12: Create a table with the average report_delay per country (Group by
 #' country).
-#' Step 14: Create a histogram using the 'duration seconds' column.
+#' Step 13: Create a histogram using the 'duration seconds' column.
 
 # Load packages needed to clean and analyze data
 library(dplyr)
@@ -60,3 +59,4 @@ names(ufo)[names(ufo) == 'datetime'] <- 'sighting_datetime'
 #' easy manipulation later on
 ufo$sighting_datetime <- strptime(ufo[["sighting_datetime"]],"%Y-%m-%d %H:%M")
 ufo$date_posted <- strptime(ufo[["date_posted"]], "%d-%m-%Y")
+
