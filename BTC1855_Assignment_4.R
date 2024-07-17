@@ -51,3 +51,9 @@ str(ufo)
 # Check summary statistics for the different variables in the dataframe
 summary(ufo)
 
+#' Change the datetime column name to `sighting_datetime`. Currently it is called
+#' `datetime`, which is an ambiguous name. It should reflect what it contains,
+#' which is the date and time of sighting.
+names(ufo)[names(ufo) == 'datetime'] <- 'sighting_datetime'
+
+
