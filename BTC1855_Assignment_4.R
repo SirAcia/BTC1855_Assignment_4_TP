@@ -60,3 +60,13 @@ names(ufo)[names(ufo) == 'datetime'] <- 'sighting_datetime'
 ufo$sighting_datetime <- strptime(ufo[["sighting_datetime"]],"%Y-%m-%d %H:%M")
 ufo$date_posted <- strptime(ufo[["date_posted"]], "%d-%m-%Y")
 
+#' Although some of the missing values in the `country` column can be filled in
+#' with the correct country based on the `city` column values, there are too many
+#' missing values that represent countries all over the world. It would be 
+#' difficult to interpret and fill in the missing values automatically and
+#' manually. Instead, I decided to set them as NA. The missing values in 
+#' `country` is not labelled as NA. Change the values at the indices of where 
+#' empty strings are found to NA.
+is.na(ufo[["country"]]) <- which(ufo[["country"]] == "") 
+
+
