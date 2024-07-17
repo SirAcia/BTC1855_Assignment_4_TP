@@ -56,4 +56,6 @@ summary(ufo)
 #' which is the date and time of sighting.
 names(ufo)[names(ufo) == 'datetime'] <- 'sighting_datetime'
 
-
+#' Convert values in sighting_datetime to datetime objects for easy manipulation
+#' later on
+ufo$sighting_datetime <- strptime(ufo[["sighting_datetime"]],"%Y-%m-%d %H:%M")
