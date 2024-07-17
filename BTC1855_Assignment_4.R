@@ -28,3 +28,21 @@
 #' Step 14: Create a table with the average report_delay per country (Group by
 #' country).
 #' Step 15: Create a histogram using the 'duration seconds' column.
+
+# Set the working directory for where you can find the ufo dataset
+setwd("C:/Users/tpalm/Downloads/")
+
+# Read the dataset and save to `ufo`
+ufo <- read.csv("ufo_subset.csv")
+
+# Check if it is a dataframe
+class(ufo)
+
+# Check the number of rows and columns of the dataframe
+dim(ufo)
+
+# Check the names of the dataframe
+names(ufo)
+
+# View the structure of the dataframe
+str(ufo)
