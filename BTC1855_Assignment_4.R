@@ -48,4 +48,6 @@ names(ufo)
 # View the structure of the dataframe
 str(ufo)
 
+# Check summary statistics for the different variables in the dataframe
+summary(ufo)
 
