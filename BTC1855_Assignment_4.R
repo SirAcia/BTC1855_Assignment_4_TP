@@ -117,3 +117,7 @@ ufo_4 <- ufo_3[-hoax_rows, ]
 #' reported.
 ufo_5 <- ufo_4 %>% mutate(report_delay = date_posted - sighting_datetime)
 
+#' Create a new dataframe that only includes the rows where report_delay is a 
+#' positive value. This indicates that the date reported is after the date of 
+#' the sighting.
+ufo_6 <- ufo_5 %>% filter(report_delay > 0) 
