@@ -137,3 +137,8 @@ ufo_5 <- ufo_4 %>% mutate(report_delay = date_posted - sighting_datetime)
 #' positive value. This indicates that the date reported is after the date of 
 #' the sighting.
 ufo_6 <- ufo_5 %>% filter(report_delay > 0) 
+
+# Create a table with the average report_delay per country.
+avg_report_delay_country <- aggregate(ufo_6$report_delay ~ ufo_6$country, FUN = mean, 
+                            na.rm = TRUE)
+
