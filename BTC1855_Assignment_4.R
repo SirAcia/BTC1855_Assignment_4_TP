@@ -81,7 +81,7 @@ if (length(missing_country) > 0) {
 }
 
 # Extract only the rows where country is not missing
-ufo_1 <- ufo %>% filter(!is.na(country))
+ufo_1 <- ufo %>% filter(!is.na(country)) 
 
 #' Repeat the same steps for `duration.seconds` column.
 missing_seconds <- which(ufo[["duration.seconds"]] == "")
