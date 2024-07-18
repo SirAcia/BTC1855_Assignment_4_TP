@@ -111,17 +111,38 @@ ufo_2 <- ufo_1 %>% filter(!is.na(duration.seconds))
 #' In the summary above, it was found that there was a huge range in the duration
 #' of sighting in seconds. I am cleaning this variable by removing the outliers,
 #' based on the interquartile range. 
-remove_outliers <- function(x) {
+
+#' Create a function that identifies and returns the upper and lower limits of 
+#' a set of values.
+limits_iqr <- function(x) {
+  # Calculate the interquartile range
   iqr <- IQR(x)
+  # Calculate the first and third quartiles
   quart1 <- quantile(x, probs = 0.25)
   quart3 <- quantile(x, probs = 0.75)
+  # Calculate the upper and lower limits using the quartiles and interquartile
+  # range
   upper_limit <-  quart3 + 1.5 * iqr
-  lower_limit <- quart1 + 1.5 * iqr
+  lower_limit <- quart1 - 1.5 * iqr
+  # Put the upper and lower limits together in a list
   limits <- list("upper" = upper_limit, "lower" = lower_limit)
+  # Return the list containing the limits
   return(limits)
 }
 
-remove_outliers(ufo$duration.seconds)
+#' Create a function that removes outliers. It takes in a column/set of values 
+#' and a list of its calculated upper and lower limits. It then filters the set 
+#' of values such that only those that are within the calculated limits are kept.
+remove_outliers <- function(x, limits) {
+  # Extract the upper and lower limits from the list of limits
+  upper <- limits$upper
+  lower <- limits$lower
+  # Filter the set of values based on the limits. Only data that are greater
+  # than or equal to the lower limit AND less than or equal to the upper limit
+  # are kept.
+  filtered_data <- x[x >= lower & x <= upper]
+  return(filtered_data)
+}
 
 #' Missing values in `shape` column are not saved as NA. Check if there are
 #' any missing values by checking if there are any matches to empty strings. If
