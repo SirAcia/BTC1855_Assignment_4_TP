@@ -111,3 +111,9 @@ ufo_3 <- ufo_2 %>% mutate(shape = case_when(
 #' these rows.
 hoax_rows <- which(grepl("NUFORC", ufo_3$comments))
 ufo_4 <- ufo_3[-hoax_rows, ]
+
+#' Create a new column called report_delay. The values are populated by
+#' determining the time differences in days between date of sighting and date 
+#' reported.
+ufo_5 <- ufo_4 %>% mutate(report_delay = date_posted - sighting_datetime)
+
