@@ -156,33 +156,33 @@ ufo_3 <- ufo_2[duration_sec_within_limit, ]
 #' the length is > 0, then that would indicate that there are empty values in
 #' the column.
 
-missing_shape <- which(ufo_2[["shape"]] == "")
+missing_shape <- which(ufo_3[["shape"]] == "")
 length(missing_shape) > 0
 
 #' Crete a new dataframe with a modified `shape` column, where the missing values
 #' are imputed to `unknown`.
-ufo_3 <- ufo_2 %>% mutate(shape = case_when(
+ufo_4 <- ufo_3 %>% mutate(shape = case_when(
   shape == "" ~ "unknown", .default = shape) 
 )
 
 #' Identify rows where where the 'comments' column contains 'NUFORC:'. This
 #' indicates the reports that NUFORC officials believe may be a hoax. Remove
 #' these rows.
-hoax_rows <- which(grepl("NUFORC", ufo_3$comments))
-ufo_4 <- ufo_3[-hoax_rows, ]
+hoax_rows <- which(grepl("NUFORC", ufo_4$comments))
+ufo_5 <- ufo_4[-hoax_rows, ]
 
 #' Create a new column called report_delay. The values are populated by
 #' determining the time differences in days between date of sighting and date 
 #' reported.
-ufo_5 <- ufo_4 %>% mutate(report_delay = date_posted - sighting_datetime)
+ufo_6 <- ufo_5 %>% mutate(report_delay = date_posted - sighting_datetime)
 
 #' Create a new dataframe that only includes the rows where report_delay is a 
 #' positive value. This indicates that the date reported is after the date of 
 #' the sighting.
-ufo_6 <- ufo_5 %>% filter(report_delay > 0) 
+ufo_7 <- ufo_6 %>% filter(report_delay > 0) 
 
 # Create a table with the average report_delay per country.
-avg_report_delay_country <- aggregate(ufo_6$report_delay ~ ufo_6$country, FUN = mean, 
+avg_report_delay_country <- aggregate(ufo_7$report_delay ~ ufo_7$country, FUN = mean, 
                             na.rm = TRUE)
 colnames(avg_report_delay_country) <- c("Country", "Avg Report Delay")
 avg_rep_del_country_table <- as.table(as.matrix(avg_report_delay_country))
