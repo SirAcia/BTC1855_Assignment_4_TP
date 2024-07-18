@@ -91,3 +91,17 @@ if (length(missing_seconds) > 0){
 
 # Extract only the rows where duration.seconds is not missing
 ufo_2 <- ufo_1 %>% filter(!is.na(duration.seconds))
+
+#' Missing values in `shape` column are not saved as NA. Check if there are
+#' any missing values by checking if there are any matches to empty strings. If
+#' the length is > 0, then that would indicate that there are empty values in
+#' the column.
+
+missing_shape <- which(ufo_2[["shape"]] == "")
+length(missing_shape) > 0
+
+#' Crete a new dataframe with a modified `shape` column, where the missing values
+#' are imputed to `unknown`.
+ufo_3 <- ufo_2 %>% mutate(shape = case_when(
+  shape == "" ~ "unknown", .default = shape) 
+)
