@@ -143,6 +143,14 @@ within_limits <- function(x, limits) {
   return(indices)
 }
 
+# Calculate the upper and lower limits for duration.seconds
+duration_sec_limit <- limits_iqr(ufo_2$duration.seconds)
+
+# Remove outliers from duration.seconds based on IQR
+duration_sec_within_limit <- within_limits(ufo_2$duration.seconds, 
+                                         duration_sec_limit)
+ufo_3 <- ufo_2[duration_sec_within_limit, ]
+
 #' Missing values in `shape` column are not saved as NA. Check if there are
 #' any missing values by checking if there are any matches to empty strings. If
 #' the length is > 0, then that would indicate that there are empty values in
