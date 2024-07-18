@@ -130,18 +130,17 @@ limits_iqr <- function(x) {
   return(limits)
 }
 
-#' Create a function that removes outliers. It takes in a column/set of values 
-#' and a list of its calculated upper and lower limits. It then filters the set 
-#' of values such that only those that are within the calculated limits are kept.
-remove_outliers <- function(x, limits) {
+#' Create a function that returns a list of indices of where the values are
+#' within the lower and upper limits. It takes in a column/set of values 
+#' and a list of its calculated upper and lower limits. 
+within_limits <- function(x, limits) {
   # Extract the upper and lower limits from the list of limits
   upper <- limits$upper
   lower <- limits$lower
-  # Filter the set of values based on the limits. Only data that are greater
-  # than or equal to the lower limit AND less than or equal to the upper limit
-  # are kept.
-  filtered_data <- x[x >= lower & x <= upper]
-  return(filtered_data)
+  # Finds the indices where the value is greater than or equal to the lower 
+  # limit AND less than or equal to the upper limit.
+  indices <- which(x >= lower & x <= upper)
+  return(indices)
 }
 
 #' Missing values in `shape` column are not saved as NA. Check if there are
