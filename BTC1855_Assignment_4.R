@@ -187,3 +187,16 @@ avg_report_delay_country <- aggregate(ufo_7$report_delay ~ ufo_7$country, FUN = 
 colnames(avg_report_delay_country) <- c("Country", "Avg Report Delay")
 avg_rep_del_country_table <- as.table(as.matrix(avg_report_delay_country))
 avg_rep_del_country_table
+
+# Create a histogram using the 'duration seconds' column
+hist(ufo_7$duration.seconds)
+# This does not provide a good spread of the data. Thus, I decided to use the 
+# log10 scale to improve this histogram.
+max_log_duration_sec <- max(log10(ufo_7$duration.seconds)) + 1
+min_log_duration_sec <- min(log10(ufo_7$duration.seconds))
+duration_sec_hist <- hist(log10(ufo_7$duration.seconds), 
+                          main = "Logarithmic Distribution of UFO Sighting Durations (s)",
+                          xlab = "Duration of the Sighting (s; log10 scale)", 
+                          ylab = "Frequency", xlim = c(-1, 
+                                                       max_log_duration_sec),
+                          ylim = c(0, 8000))
