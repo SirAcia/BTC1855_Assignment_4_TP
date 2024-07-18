@@ -61,12 +61,23 @@ names(ufo)[names(ufo) == "datetime"] <- "sighting_datetime"
 # Check if the name has been updated
 colnames(ufo)
 
+# Check if there are any missing values in sighting date and date of report.
+any(is.na(ufo[["sighting_datetime"]]))
+any(is.na(ufo[["date_posted"]]))
+# There were none so we can now convert them into POSIXlt objects
+
 #' Convert values in sighting_datetime and date_posted to POSIXlt objects for 
 #' easy manipulation later on
 ufo$sighting_datetime <- parse_date_time(ufo[["sighting_datetime"]],
                                          "%Y-%m-%d %H:%M", exact = TRUE)
 ufo$date_posted <- parse_date_time(ufo[["date_posted"]], "%d-%m-%Y",
                                    exact = TRUE)
+
+# Check again to make sure that there are no missing values in sighting date and 
+# date of report.
+any(is.na(ufo[["sighting_datetime"]]))
+any(is.na(ufo[["date_posted"]]))
+# No missing values!
 
 #' Although some of the missing values in the `country` column can be filled in
 #' with the correct country based on the `city` column values, there are too many
