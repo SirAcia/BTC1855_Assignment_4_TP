@@ -105,3 +105,9 @@ length(missing_shape) > 0
 ufo_3 <- ufo_2 %>% mutate(shape = case_when(
   shape == "" ~ "unknown", .default = shape) 
 )
+
+#' Identify rows where where the 'comments' column contains 'NUFORC:'. This
+#' indicates the reports that NUFORC officials believe may be a hoax. Remove
+#' these rows.
+hoax_rows <- which(grepl("NUFORC", ufo_3$comments))
+ufo_4 <- ufo_3[-hoax_rows, ]
