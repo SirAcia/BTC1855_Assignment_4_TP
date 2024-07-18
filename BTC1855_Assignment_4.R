@@ -141,4 +141,5 @@ ufo_6 <- ufo_5 %>% filter(report_delay > 0)
 # Create a table with the average report_delay per country.
 avg_report_delay_country <- aggregate(ufo_6$report_delay ~ ufo_6$country, FUN = mean, 
                             na.rm = TRUE)
+colnames(avg_report_delay_country) <- c("Country", "Avg Report Delay")
 
