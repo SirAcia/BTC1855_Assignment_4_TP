@@ -67,19 +67,24 @@ ufo$date_posted <- strptime(ufo[["date_posted"]], "%d-%m-%Y")
 #' with the correct country based on the `city` column values, there are too many
 #' missing values that represent countries all over the world. It would be 
 #' difficult to interpret and fill in the missing values automatically and
-#' manually. Instead, I decided to set them as NA. The missing values in 
-#' `country` is not labelled as NA. Change the values at the indices of where 
-#' empty strings are found to NA.
+#' manually. 
 
 #' Missing values in `country` column are not saved as NA. Check if there are
 #' any missing values by checking if there are any matches to empty strings. If
 #' the length is > 0, then that would indicate that there are empty values in
 #' the column.
-length(which(ufo[["country"]] == "")) > 0
 
+missing_country <- which(ufo[["country"]] == "")
+if (length(missing_country) > 0) {
+# Change the values at the indices of where empty strings are found to NA.
+  is.na(ufo[["country"]]) <- missing_country
+}
 
-is.na(ufo[["country"]]) <- which(ufo[["country"]] == "") 
+# Extract only the rows where country is not missing
+ufo_1 <- ufo %>% filter(!is.na(country))
 
-#' Identify missing values in the `duration.seconds` column. The missing values 
-#' are not saved as NA - change the missing values to NA.
-is.na(ufo[["duration.seconds"]]) <- which(ufo[["duration.seconds"]] == "") 
+#' Repeat the same steps for `duration.seconds` column.
+missing_seconds <- which(ufo[["duration.seconds"]] == "")
+if (length(missing_seconds) > 0){
+  is.na(ufo[["duration.seconds"]]) <- missing_seconds
+}
