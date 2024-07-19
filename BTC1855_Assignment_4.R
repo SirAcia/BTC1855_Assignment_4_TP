@@ -188,7 +188,8 @@ colnames(avg_report_delay_country) <- c("Country", "Avg Report Delay")
 avg_rep_del_country_table <- as.table(as.matrix(avg_report_delay_country))
 avg_rep_del_country_table
 
-# Create a histogram using the 'duration seconds' column
+# Create a histogram using the 'duration seconds' column. Note that the data
+# used here does not include the outliers, as they were removed earlier.
 hist(ufo_7$duration.seconds)
 # This does not provide a good spread of the data. Thus, I decided to use the 
 # log10 scale to improve this histogram.
